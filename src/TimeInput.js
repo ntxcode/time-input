@@ -14,23 +14,30 @@ var TimeInput = React.createClass({
   getDefaultProps () {
     return {
       value: '12:00 AM',
-      defaultValue: '00:00:00:000 AM'
+      defaultValue: '00:00:00:000 AM',
+      Component: 'input'
     }
   },
   propTypes: {
     className: React.PropTypes.string,
     value: React.PropTypes.string,
     onChange: React.PropTypes.func,
-    defaultValue: React.PropTypes.string
+    defaultValue: React.PropTypes.string,
+    Component: React.PropTypes.oneOfType([
+        React.PropTypes.func,
+        React.PropTypes.string,
+        React.PropTypes.object
+    ])
   },
   render () {
+    const { Component } = this.props;
     let className = 'TimeInput'
     if (this.props.className) {
       className += (' ' + this.props.className)
     }
     return (
       <div className={className}>
-        <input
+        <Component
           className='TimeInput-input'
           ref={(input) => { this.input = input }}
           type='text'
@@ -145,7 +152,7 @@ var TimeInput = React.createClass({
   },
   handleChange (event) {
     var value = this.props.value
-    var newValue = this.input.value
+    var newValue = event.target.value
     newValue += value.substr(newValue.length, value.length)
     var diff = newValue.length - value.length
     var end = caret.start(this.input)

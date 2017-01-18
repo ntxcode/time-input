@@ -14,7 +14,10 @@
     "Matt Livingston <matt.l.livingston@gmail.com>"
   ],
   "license": "UNLICENSED",
-  "dependencies": {},
+  "dependencies": {
+    "react": "^15.4.2",
+    "react-dom": "^15.4.2"
+  },
   "devDependencies": {
     "babel-cli": "^6.10.1",
     "babel-core": "^6.5.2",
@@ -38,9 +41,7 @@
     "karma-webpack": "^1.7.0",
     "mocha": "^2.4.5",
     "raw-loader": "^0.5.1",
-    "react": "^0.14.0 || ^15.0.0",
     "react-addons-test-utils": "^0.14.7",
-    "react-dom": "^0.14.7",
     "react-test-utils": "0.0.1",
     "source-map-loader": "^0.1.5",
     "standard": "^6.0.7",
@@ -48,9 +49,6 @@
     "webpack": "^1.12.14",
     "webpack-dev-middleware": "^1.5.1",
     "webpack-hot-middleware": "^2.7.1"
-  },
-  "peerDependencies": {
-    "react": "^0.14.0 || ^15.0.0"
   },
   "directories": {
     "test": "test"
