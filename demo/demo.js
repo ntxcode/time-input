@@ -28,10 +28,10 @@ var MyCustomInput = React.createClass({
 ;(function render (value) {
   ReactDom.render((
       <div className="TimeInput">
-        <TimeInput className="TimeInput-input" value={value} onChange={render}/>
+        <TimeInput className="TimeInput-input" value={value} onChange={render} defaultValue='13:00' />
       </div>
   ), document.getElementById('demo-2'))
-})('13:00')
+})()
 
 ;(function render (value) {
   ReactDom.render((
