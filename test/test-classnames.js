@@ -11,6 +11,6 @@ describe('classnames', function () {
       <TimeInput className='extra-1 extra-2' />
     ), document.body.firstElementChild)
     var el = document.body.getElementsByTagName('input')[0]
-    expect(el.parentElement.className).to.eql('TimeInput extra-1 extra-2')
+    expect(el.parentElement.className).to.eql('extra-1 extra-2')
   })
 })

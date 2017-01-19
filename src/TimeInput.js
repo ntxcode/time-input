@@ -30,23 +30,17 @@ var TimeInput = React.createClass({
     ])
   },
   render () {
-    const { Component } = this.props;
-    let className = 'TimeInput'
-    if (this.props.className) {
-      className += (' ' + this.props.className)
-    }
+    const { Component, className } = this.props
     return (
-      <div className={className}>
-        <Component
-          className='TimeInput-input'
-          ref={(input) => { this.input = input }}
-          type='text'
-          value={this.format(this.props.value)}
-          onChange={this.handleChange}
-          onBlur={this.handleBlur}
-          onKeyDown={this.handleKeyDown}
-        />
-      </div>
+      <Component
+        className={className}
+        ref={(input) => { this.input = input }}
+        type='text'
+        value={this.format(this.props.value)}
+        onChange={this.handleChange}
+        onBlur={this.handleBlur}
+        onKeyDown={this.handleKeyDown}
+      />
     )
   },
   format (val) {
