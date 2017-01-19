@@ -16,7 +16,6 @@ var TimeInput = React.createClass({
   },
   getDefaultProps: function getDefaultProps() {
     return {
-      value: '12:00 AM',
       defaultValue: '00:00:00:000 AM',
       Component: 'input'
     };
@@ -34,7 +33,9 @@ var TimeInput = React.createClass({
 
     var _props = this.props,
         Component = _props.Component,
-        className = _props.className;
+        className = _props.className,
+        defaultValue = _props.defaultValue,
+        value = _props.value;
 
     return React.createElement(Component, {
       className: className,
@@ -42,7 +43,7 @@ var TimeInput = React.createClass({
         _this.input = input;
       },
       type: 'text',
-      value: this.format(this.props.value),
+      value: this.format(value || defaultValue),
       onChange: this.handleChange,
       onBlur: this.handleBlur,
       onKeyDown: this.handleKeyDown
@@ -51,6 +52,9 @@ var TimeInput = React.createClass({
   format: function format(val) {
     if (isTwelveHourTime(val)) val = val.replace(/^00/, '12');
     return val.toUpperCase();
+  },
+  getValue: function getValue() {
+    return this.props.value || this.props.defaultValue;
   },
   componentDidMount: function componentDidMount() {
     this.mounted = true;
@@ -70,7 +74,7 @@ var TimeInput = React.createClass({
   },
   handleTab: function handleTab(event) {
     var start = caret.start(this.input);
-    var value = this.props.value;
+    var value = this.getValue();
     var groups = getGroups(value);
     var groupId = getGroupId(start);
     if (event.shiftKey) {
@@ -82,13 +86,13 @@ var TimeInput = React.createClass({
     }
     event.preventDefault();
     var index = groupId * 3;
-    if (this.props.value.charAt(index) === ' ') index++;
+    if (this.getValue().charAt(index) === ' ') index++;
     if (this.mounted) this.setState({ caretIndex: index });
   },
   handleArrows: function handleArrows(event) {
     event.preventDefault();
     var start = caret.start(this.input);
-    var value = this.props.value;
+    var value = this.getValue();
     var amount = event.which === 38 ? 1 : -1;
     if (event.shiftKey) {
       amount *= 2;
@@ -101,7 +105,7 @@ var TimeInput = React.createClass({
     event.preventDefault();
     var defaultValue = this.props.defaultValue;
     var start = caret.start(this.input);
-    var value = this.props.value;
+    var value = this.getValue();
     var end = caret.end(this.input);
     var diff = end - start;
     if (!diff) {
@@ -122,7 +126,7 @@ var TimeInput = React.createClass({
     event.preventDefault();
     var defaultValue = this.props.defaultValue;
     var start = caret.start(this.input);
-    var value = this.props.value;
+    var value = this.getValue();
     var end = caret.end(this.input);
     var diff = end - start;
     if (!diff) {
@@ -151,7 +155,7 @@ var TimeInput = React.createClass({
     );
   },
   handleChange: function handleChange(event) {
-    var value = this.props.value;
+    var value = this.getValue();
     var newValue = event.target.value;
     newValue += value.substr(newValue.length, value.length);
     var diff = newValue.length - value.length;
@@ -184,7 +188,7 @@ var TimeInput = React.createClass({
     if (validate(newValue)) {
       this.onChange(newValue, end);
     } else {
-      var caretIndex = this.props.value.length - (newValue.length - end);
+      var caretIndex = this.getValue().length - (newValue.length - end);
       if (this.mounted) this.setState({ caretIndex: caretIndex });
     }
   },
